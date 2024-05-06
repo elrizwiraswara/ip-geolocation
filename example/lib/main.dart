@@ -6,7 +6,6 @@ import 'package:ip_geolocation/ip_geolocation.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -28,7 +27,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String text = '';
-  GeolocationData geolocationData;
+  late GeolocationData geolocationData;
 
   @override
   void initState() {
@@ -38,11 +37,9 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getIp() async {
     geolocationData = await GeolocationAPI.getData();
-    if (geolocationData != null) {
-      setState(() {
-        text = geolocationData.ip;
-      });
-    }
+    setState(() {
+      text = geolocationData.ip ?? '';
+    });
   }
 
   @override
@@ -56,14 +53,13 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               Text(text),
               MaterialButton(
-                  onPressed: () {
-                    if (geolocationData != null) {
-                      setState(() {
-                        text = jsonEncode(geolocationData.toJson());
-                      });
-                    }
-                  },
-                  child: Text("toJSON"))
+                onPressed: () {
+                  setState(() {
+                    text = jsonEncode(geolocationData.toJson());
+                  });
+                },
+                child: Text("toJSON"),
+              )
             ],
           ),
         ),

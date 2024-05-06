@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart' show required;
-
 class GeolocationData {
   final String? country, countryCode, timezone, ip;
   final double? lat, lon;
@@ -10,7 +8,7 @@ class GeolocationData {
     this.timezone,
     this.ip,
     this.lat,
-    this.lon
+    this.lon,
   });
 
   factory GeolocationData.fromJson(Map<String, dynamic> json) {
